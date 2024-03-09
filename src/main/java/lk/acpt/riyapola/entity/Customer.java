@@ -59,13 +59,18 @@ public class Customer {
         this.city = city;
     }
 
-    public int getContact() {
-        return contact;
-    }
 
-    public void setContact(int contact) {
-        this.contact = contact;
-    }
+        public int getContact() {
+            return contact;
+        }
+
+        public void setContact(int contact) {
+            this.contact = contact;
+        }
+
+
+
+
 
     public String getEmail() {
         return email;
