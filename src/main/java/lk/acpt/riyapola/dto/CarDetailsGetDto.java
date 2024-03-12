@@ -4,18 +4,18 @@ import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 import lombok.ToString;
-import org.springframework.web.multipart.MultipartFile;
 
-@Data
 @AllArgsConstructor
 @NoArgsConstructor
+@Data
 @ToString
-public class CarDto {
+public class CarDetailsGetDto {
     private int id;
     private String model;
     private String brand;
     private String transMode;
     private String fuelType;
     private String engineCap;
-    private MultipartFile carName;
+    private String carName;
+
 }
