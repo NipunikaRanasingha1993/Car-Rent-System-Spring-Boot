@@ -22,17 +22,28 @@ public class AdminService {
         this.adminRepo = adminRepo;
     }
 
+    public Admin adminSave(AdminDto adminDto){
+        return adminRepo.save(new Admin(adminDto.getFirstName(), adminDto.getLastName(), adminDto.getEmail(), adminDto.getUserName(), adminDto.getPassword()));
+    }
+
 
     public HashMap<String, String> loginAdmin(AdminDto adminDto) {
 
         HashMap<String, String> response = new HashMap<>();
-        Admin adminDtoByEmailAndPassword = adminRepo.findAdminDtoByEmailAndPassword(adminDto.getEmail(), adminDto.getPassword());
-        if (adminDtoByEmailAndPassword != null) {
-            String token = this.jwtTokenGenerator.generateJwtToken(adminDtoByEmailAndPassword);
+        Admin adminByEmailAndPassword = adminRepo.findAdminByEmailAndPassword(adminDto.getEmail(), adminDto.getPassword());
+        System.out.println(adminByEmailAndPassword);
+
+        if (adminByEmailAndPassword != null) {
+            String token = this.jwtTokenGenerator.generateJwtToken(adminDto);
             response.put("token", token);
-        } else {
+
+        }
+
+        else {
             response.put("message", "wrong Credentials");
         }
+
+   return response;
     }
 }
 

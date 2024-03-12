@@ -7,10 +7,7 @@ import lk.acpt.riyapola.service.AdminService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.HashMap;
 import java.util.Map;
@@ -25,13 +22,17 @@ public class AdminController {
         this.adminService = adminService;
     }
 
-
-    @PostMapping("/login")
-    public void loginAdmin(@RequestBody AdminDto adminDto){
-        adminService.loginAdmin(adminDto);
+    @PostMapping("/save")
+    public ResponseEntity<Admin> adminSave(@RequestBody AdminDto adminDto){
+        Admin admin = adminService.adminSave(adminDto);
+        return new ResponseEntity<>(admin,HttpStatus.CREATED);
     }
 
 
 
-
+    @PostMapping("/login")
+    public ResponseEntity<HashMap<String, String>> loginAdmin(@RequestBody AdminDto adminDto){
+        HashMap<String, String> string = adminService.loginAdmin(adminDto);
+        return new ResponseEntity<>(string,HttpStatus.CREATED);
+    }
 }
