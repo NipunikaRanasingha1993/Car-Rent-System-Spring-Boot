@@ -24,7 +24,7 @@ public class CarService {
 
     public CarDetailsGetDto saveCar(CarDto carDto) throws IOException, URISyntaxException {
         String projectPath = new File(this.getClass().getProtectionDomain().getCodeSource().getLocation().toURI()).getParentFile().getParentFile().getAbsolutePath();
-        File uploadDir = new File(projectPath + "/uploads");
+        File uploadDir = new File(projectPath + "/src/main/resources/static/uploads");
 //      meke hari nam project path eka denna one /src/main/resources/static menna me path erke
         uploadDir.mkdir();
 
@@ -35,12 +35,11 @@ public class CarService {
         car.setCarName("uploads/" +carDto.getCarName().getOriginalFilename());
 
 
-        Car save = carRepo.save(car);
-        System.out.println(save);
+        Car carNew = carRepo.save(car);
+        System.out.println(carNew);
 
-//        return (save);
-        return new CarDetailsGetDto(save.getId(),save.getModel(), save.getBrand(), save.getTransMode(),save.getFuelType(), save.getEngineCap(),save.getCarName());
-
+//     return (save);
+        return new CarDetailsGetDto(carNew.getId(), carNew.getModel(), carNew.getBrand(), carNew.getTransMode(), carNew.getFuelType(), carNew.getEngineCap(), carNew.getCarName());
     }
 
     public List<Car> getAllCars(){

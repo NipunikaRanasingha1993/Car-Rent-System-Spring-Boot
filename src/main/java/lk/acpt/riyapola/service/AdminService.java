@@ -13,12 +13,10 @@ import java.util.Map;
 @Service
 public class AdminService {
 
-    private final JWTTokenGenerator jwtTokenGenerator;
     private final AdminRepo adminRepo;
 
     @Autowired
     public AdminService(JWTTokenGenerator jwtTokenGenerator, AdminRepo adminRepo) {
-        this.jwtTokenGenerator = jwtTokenGenerator;
         this.adminRepo = adminRepo;
     }
 
@@ -26,25 +24,6 @@ public class AdminService {
         return adminRepo.save(new Admin(adminDto.getFirstName(), adminDto.getLastName(), adminDto.getEmail(), adminDto.getUserName(), adminDto.getPassword()));
     }
 
-
-    public HashMap<String, String> loginAdmin(AdminDto adminDto) {
-
-        HashMap<String, String> response = new HashMap<>();
-        Admin adminByEmailAndPassword = adminRepo.findAdminByEmailAndPassword(adminDto.getEmail(), adminDto.getPassword());
-        System.out.println(adminByEmailAndPassword);
-
-        if (adminByEmailAndPassword != null) {
-            String token = this.jwtTokenGenerator.generateJwtToken(adminDto);
-            response.put("token", token);
-
-        }
-
-        else {
-            response.put("message", "wrong Credentials");
-        }
-
-   return response;
-    }
 }
 
 

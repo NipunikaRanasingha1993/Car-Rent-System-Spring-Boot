@@ -70,6 +70,14 @@
 			<scope>runtime</scope>
 		</dependency>
 
+<!--		bcrypt spring security-->
+		<dependency>
+			<groupId>org.springframework.security</groupId>
+			<artifactId>spring-security-crypto</artifactId>
+			<version>6.2.0</version>
+		</dependency>
+
+
 	</dependencies>
 
 	<build>

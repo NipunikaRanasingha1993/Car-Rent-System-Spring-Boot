@@ -24,7 +24,7 @@ public class CarController {
         this.carService = carService;
     }
 
-    @PostMapping
+    @PostMapping("/addNewCar")
     public ResponseEntity<Object> saveCar(@ModelAttribute CarDto carDto) throws IOException, URISyntaxException {
         CarDetailsGetDto dto = carService.saveCar(carDto);
         return new ResponseEntity<>(dto, HttpStatus.CREATED);

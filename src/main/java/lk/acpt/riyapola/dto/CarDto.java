@@ -11,11 +11,20 @@ import org.springframework.web.multipart.MultipartFile;
 @NoArgsConstructor
 @ToString
 public class CarDto {
-    private int id;
+    private Long id;
     private String model;
     private String brand;
     private String transMode;
     private String fuelType;
     private String engineCap;
     private MultipartFile carName;
+
+    public CarDto(String model, String brand, String transMode, String fuelType, String engineCap, MultipartFile carName) {
+        this.model = model;
+        this.brand = brand;
+        this.transMode = transMode;
+        this.fuelType = fuelType;
+        this.engineCap = engineCap;
+        this.carName = carName;
+    }
 }

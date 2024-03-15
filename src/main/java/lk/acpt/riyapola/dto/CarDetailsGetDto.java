@@ -10,7 +10,7 @@ import lombok.ToString;
 @Data
 @ToString
 public class CarDetailsGetDto {
-    private int id;
+    private Long id;
     private String model;
     private String brand;
     private String transMode;
