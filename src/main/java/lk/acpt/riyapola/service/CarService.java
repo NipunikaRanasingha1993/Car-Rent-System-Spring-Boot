@@ -7,11 +7,11 @@ import lk.acpt.riyapola.repo.CarRepo;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import java.awt.*;
 import java.io.File;
 import java.io.IOException;
 import java.net.URISyntaxException;
 import java.util.List;
+import java.util.Optional;
 
 @Service
 public class CarService {
@@ -46,5 +46,26 @@ public class CarService {
         return carRepo.findAll();
     }
 
+    public CarDetailsGetDto updateCar(Long id, CarDto carDto){
+        if(carRepo.existsById(id)){
+            Car newCar = carRepo.save(new Car(id, carDto.getModel(), carDto.getBrand(), carDto.getTransMode(), carDto.getFuelType(), carDto.getEngineCap(), carDto.getCarName().getOriginalFilename()));
+            return new CarDetailsGetDto(newCar.getId(), newCar.getModel(), newCar.getBrand(), newCar.getTransMode(), newCar.getFuelType(), newCar.getEngineCap(), newCar.getCarName());
+        }
+        return null;
+    }
 
+    public String deleteCar(Long id){
+        if(carRepo.existsById(id)){
+            carRepo.deleteById(id);
+            return "car deleted......";
+        }else{
+            return "no found car.....";
+        }
+    }
+
+    public Car searchCar(Long id){
+        Optional<Car> byId = carRepo.findById(id);
+        return byId.orElse(null);
+
+    }
 }

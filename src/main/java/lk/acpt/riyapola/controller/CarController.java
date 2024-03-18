@@ -37,11 +37,48 @@ public class CarController {
         }
 
     }
-    @GetMapping
-    public ResponseEntity<List<Car>> getAllCars(){
+    @GetMapping("/getAllCar")
+    public ResponseEntity<Object> getAllCars(@RequestHeader(name="Authorization") String authorizationHeader){
+        if(this.jwtTokenGenerator.validateJwtToken(authorizationHeader)){
         List<Car> allCars = carService.getAllCars();
         return new ResponseEntity<>(allCars,HttpStatus.OK);
+    }else{
+            return new ResponseEntity<>("invalied token" , HttpStatus.FORBIDDEN);
+        }
     }
+
+    @PutMapping("/{carId}")
+    public ResponseEntity<Object> updateCar(@RequestHeader(name="Authorization") String authorizationHeader ,@PathVariable Long carId,@ModelAttribute CarDto carDto) {
+        if (this.jwtTokenGenerator.validateJwtToken(authorizationHeader)) {
+            CarDetailsGetDto dto = carService.updateCar(carId, carDto);
+            return new ResponseEntity<>(dto, HttpStatus.OK);
+        }else {
+            return new ResponseEntity<>("invalied token" , HttpStatus.FORBIDDEN);
+        }
+    }
+
+    @DeleteMapping("/{carId}")
+    public ResponseEntity<String> deleteCar(@RequestHeader(name="Authorization") String authorizationHeader, @PathVariable Long carId){
+        if(this.jwtTokenGenerator.validateJwtToken(authorizationHeader)){
+            String delCar = carService.deleteCar(carId);
+            return new ResponseEntity<>(delCar,HttpStatus.CREATED);
+        }else {
+            return new ResponseEntity<>("invalied token" , HttpStatus.FORBIDDEN);
+        }
+
+    }
+
+    @GetMapping("/search_car_by_id/{carId}")
+    public ResponseEntity<Object> searchCar(@RequestHeader(name="Authorization") String authorizationHeader, @PathVariable Long carId){
+        if(this.jwtTokenGenerator.validateJwtToken(authorizationHeader)){
+            Car car = carService.searchCar(carId);
+            return new ResponseEntity<>(car,HttpStatus.OK);
+        } else {
+            return new ResponseEntity<>("invalied token" , HttpStatus.FORBIDDEN);
+        }
+
+    }
+
 
 
 }
