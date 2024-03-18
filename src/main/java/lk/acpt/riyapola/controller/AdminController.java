@@ -43,7 +43,7 @@ public class AdminController {
 
 
     @PostMapping("/login")
-    public Map<String, String> loginAdmin(@RequestBody AdminDto adminDto){
+    public ResponseEntity<Map<String, String>> loginAdmin(@RequestBody AdminDto adminDto){
         BCryptPasswordEncoder bCryptPasswordEncoder = new BCryptPasswordEncoder();
         Map<String,String> response = new HashMap<>();
 
@@ -55,15 +55,12 @@ public class AdminController {
         if(adminByEmail != null && bCryptPasswordEncoder.matches(adminDto.getPassword(), findPw)){
                 String token = this.jwtTokenGenerator.generateJwtToken(adminByEmail);
                 response.put("token", token);
-
-            }
-
-            else {
-                response.put("message", "wrong Credentials");
-            }
-
-            return response;
         }
+        else {
+                response.put("message", "wrong Credentials");
+        }
+        return new ResponseEntity<>(response,HttpStatus.OK);
+    }
 
 
 }

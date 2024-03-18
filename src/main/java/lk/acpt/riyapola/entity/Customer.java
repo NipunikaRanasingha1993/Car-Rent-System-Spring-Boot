@@ -23,4 +23,11 @@ public class Customer {
     private String contact;
     private String email;
     private String password;
+
+    public Customer(String name, String contact, String email, String password) {
+        this.name = name;
+        this.contact = contact;
+        this.email = email;
+        this.password = password;
+    }
 }
