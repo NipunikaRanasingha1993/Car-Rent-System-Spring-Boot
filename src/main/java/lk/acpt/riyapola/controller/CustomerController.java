@@ -11,6 +11,7 @@ import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 @CrossOrigin
@@ -48,10 +49,57 @@ public class CustomerController {
         if(customerByEmail!=null && bCryptPasswordEncoder.matches(customerDto.getPassword(),Pw)){
             String token = this.jwtTokenGenerator.generateJwtToken2(customerByEmail);
             response.put("token",token);
+            return new ResponseEntity<>(response,HttpStatus.OK);
         }
         else {
             response.put("message", "wrong Credentials");
+            return new ResponseEntity<>(response,HttpStatus.FORBIDDEN);
         }
-        return new ResponseEntity<>(response,HttpStatus.OK);
+
+    }
+
+    @GetMapping("/getAllCustomer")
+    public ResponseEntity<Object> getAllCustomer(@RequestHeader(name = "Authorization") String authorizationHeader){
+        if(this.jwtTokenGenerator.validateJwtToken(authorizationHeader)){
+            List<Customer> allCustomer = customerService.getAllCustomer();
+            return new ResponseEntity<>(allCustomer,HttpStatus.OK);
+        }
+        else {
+            return new ResponseEntity<>("invalied token",HttpStatus.FORBIDDEN);
+        }
+
+    }
+
+    @PutMapping("/{customerId}")
+    public ResponseEntity<Object> updateCustomer(@RequestHeader(name = "Authorization") String authorizationHeader,@PathVariable Long customerId ,@RequestBody CustomerDto customerDto){
+        if(this.jwtTokenGenerator.validateJwtToken(authorizationHeader)){
+            Customer customer = customerService.updateCustomer(customerId, customerDto);
+            return new ResponseEntity<>(customer,HttpStatus.OK);
+        }
+        else {
+            return new ResponseEntity<>("invalied token" , HttpStatus.FORBIDDEN);
+        }
+    }
+
+    @DeleteMapping("/{customerId}")
+    public ResponseEntity<Object> deleteCustomer(@RequestHeader(name = "Authorization") String authorizationHeader,@PathVariable Long customerId){
+        if(this.jwtTokenGenerator.validateJwtToken(authorizationHeader)){
+            String delCustomer = customerService.deleteCustomer(customerId);
+            return new ResponseEntity<>(delCustomer,HttpStatus.CREATED);
+        }
+        else {
+            return new ResponseEntity<>("invalied token" , HttpStatus.FORBIDDEN);
+        }
+    }
+
+    @GetMapping("/search_customer_by_id/{customerId}")
+    public ResponseEntity<Object> searchCustomer(@RequestHeader(name = "Authorization") String authorizationHeader,@PathVariable Long customerId){
+        if(this.jwtTokenGenerator.validateJwtToken(authorizationHeader)){
+            Customer customer = customerService.searchCustomer(customerId);
+            return new ResponseEntity<>(customer,HttpStatus.CREATED);
+        }
+        else{
+            return new ResponseEntity<>("invalied token" , HttpStatus.FORBIDDEN);
+        }
     }
 }

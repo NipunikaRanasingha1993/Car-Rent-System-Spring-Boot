@@ -55,11 +55,13 @@ public class AdminController {
         if(adminByEmail != null && bCryptPasswordEncoder.matches(adminDto.getPassword(), findPw)){
                 String token = this.jwtTokenGenerator.generateJwtToken(adminByEmail);
                 response.put("token", token);
+            return new ResponseEntity<>(response,HttpStatus.OK);
         }
         else {
                 response.put("message", "wrong Credentials");
+                return new ResponseEntity<>(response,HttpStatus.FORBIDDEN);
         }
-        return new ResponseEntity<>(response,HttpStatus.OK);
+
     }
 
 
