@@ -38,13 +38,9 @@ public class CarController {
 
     }
     @GetMapping("/getAllCar")
-    public ResponseEntity<Object> getAllCars(@RequestHeader(name="Authorization") String authorizationHeader){
-        if(this.jwtTokenGenerator.validateJwtToken(authorizationHeader)){
+    public ResponseEntity<Object> getAllCars(){
         List<Car> allCars = carService.getAllCars();
         return new ResponseEntity<>(allCars,HttpStatus.OK);
-    }else{
-            return new ResponseEntity<>("invalied token" , HttpStatus.FORBIDDEN);
-        }
     }
 
     @PutMapping("/{carId}")
