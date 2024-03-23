@@ -36,13 +36,16 @@ public class CustomerController {
         String newPassword = bCryptPasswordEncoder.encode(customerDto.getPassword());
         customerDto.setPassword(newPassword);
         Customer customer = customerService.customerSave(customerDto);
-        return new ResponseEntity<>(customer, HttpStatus.CREATED);
-    }
+            return new ResponseEntity<>(customer, HttpStatus.CREATED);
+        }
+
+
 
     @PostMapping("/login")
     public ResponseEntity<Map<String,String>> customerLogin(@RequestBody CustomerDto customerDto){
         BCryptPasswordEncoder bCryptPasswordEncoder = new BCryptPasswordEncoder();
         Map<String,String> response = new HashMap<>();
+
         String Pw = customerRepo.findCustomerByEmailToGetPw(customerDto.getEmail());
         Customer customerByEmail = customerRepo.findCustomerByEmail(customerDto.getEmail());
 
