@@ -26,6 +26,12 @@ public class CustomerService {
         return customerRepo.findAll();
     }
 
+    public Customer getCustomer(Long id){
+        Optional<Customer> customerById = customerRepo.findById(id);
+        return customerById.orElse(null);
+
+    }
+
     public Customer updateCustomer(Long id, CustomerDto customerDto){
         if(customerRepo.existsById(id)){
             return customerRepo.save(new Customer(id,customerDto.getName(),customerDto.getContact(),customerDto.getEmail(),customerDto.getPassword()));

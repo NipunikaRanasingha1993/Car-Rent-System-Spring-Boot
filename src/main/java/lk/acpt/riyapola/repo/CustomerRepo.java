@@ -10,4 +10,7 @@ public interface CustomerRepo extends JpaRepository<Customer, Long> {
     String findCustomerByEmailToGetPw(String email);
 
     Customer findCustomerByEmail(String email);
+
+    @Query(nativeQuery = true,value = "SELECT id FROM customer WHERE email=:email" )
+    Long findCustomerByEmailToGetId(String email);
 }

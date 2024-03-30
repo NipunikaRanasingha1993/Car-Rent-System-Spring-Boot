@@ -44,14 +44,18 @@ public class CustomerController {
     @PostMapping("/login")
     public ResponseEntity<Map<String,String>> customerLogin(@RequestBody CustomerDto customerDto){
         BCryptPasswordEncoder bCryptPasswordEncoder = new BCryptPasswordEncoder();
-        Map<String,String> response = new HashMap<>();
+        HashMap<String, String> response = new HashMap<>();
 
         String Pw = customerRepo.findCustomerByEmailToGetPw(customerDto.getEmail());
         Customer customerByEmail = customerRepo.findCustomerByEmail(customerDto.getEmail());
+        String cusId = String.valueOf(customerRepo.findCustomerByEmailToGetId(customerDto.getEmail()));
+//        Long cusId = customerRepo.findCustomerByEmailToGetId(customerDto.getEmail());
 
         if(customerByEmail!=null && bCryptPasswordEncoder.matches(customerDto.getPassword(),Pw)){
             String token = this.jwtTokenGenerator.generateJwtToken2(customerByEmail);
             response.put("token",token);
+            response.put("cusId",cusId);
+            System.out.println(cusId);
             return new ResponseEntity<>(response,HttpStatus.OK);
         }
         else {
@@ -73,6 +77,20 @@ public class CustomerController {
 
     }
 
+
+    @GetMapping("/get/{customerId}")
+    public ResponseEntity<Object> getCustomer(@RequestHeader(name = "Authorization") String authorizationHeader,@PathVariable Long customerId){
+        if(this.jwtTokenGenerator.validateJwtToken(authorizationHeader)){
+            Customer customer = customerService.getCustomer(customerId);
+            return new ResponseEntity<>(customer,HttpStatus.OK);
+        }
+        else {
+            return new ResponseEntity<>("invalied token",HttpStatus.FORBIDDEN);
+        }
+
+    }
+
+
     @PutMapping("/{customerId}")
     public ResponseEntity<Object> updateCustomer(@RequestHeader(name = "Authorization") String authorizationHeader,@PathVariable Long customerId ,@RequestBody CustomerDto customerDto){
         if(this.jwtTokenGenerator.validateJwtToken(authorizationHeader)){
@@ -83,6 +101,7 @@ public class CustomerController {
             return new ResponseEntity<>("invalied token" , HttpStatus.FORBIDDEN);
         }
     }
+
 
     @DeleteMapping("/{customerId}")
     public ResponseEntity<Object> deleteCustomer(@RequestHeader(name = "Authorization") String authorizationHeader,@PathVariable Long customerId){
