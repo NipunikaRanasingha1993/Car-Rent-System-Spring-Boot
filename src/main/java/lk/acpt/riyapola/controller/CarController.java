@@ -27,31 +27,31 @@ public class CarController {
         this.jwtTokenGenerator = jwtTokenGenerator;
     }
 
-    @PostMapping("/addNewCar")
-    public ResponseEntity<Object> saveCar(@RequestHeader(name = "Authorization") String authorizationHeader,@ModelAttribute CarDto carDto) throws IOException, URISyntaxException {
-        if (this.jwtTokenGenerator.validateJwtToken(authorizationHeader)) {
-            CarDetailsGetDto dto = carService.saveCar(carDto);
-            return new ResponseEntity<>(dto, HttpStatus.CREATED);
-        } else {
-            return new ResponseEntity<>("invalied token",HttpStatus.FORBIDDEN);
-        }
-
-    }
+//    @PostMapping("/addNewCar")
+//    public ResponseEntity<Object> saveCar(@RequestHeader(name = "Authorization") String authorizationHeader,@ModelAttribute CarDto carDto) throws IOException, URISyntaxException {
+//        if (this.jwtTokenGenerator.validateJwtToken(authorizationHeader)) {
+//            CarDetailsGetDto dto = carService.saveCar(carDto);
+//            return new ResponseEntity<>(dto, HttpStatus.CREATED);
+//        } else {
+//            return new ResponseEntity<>("invalied token",HttpStatus.FORBIDDEN);
+//        }
+//
+//    }
     @GetMapping("/getAllCar")
     public ResponseEntity<Object> getAllCars(){
         List<Car> allCars = carService.getAllCars();
         return new ResponseEntity<>(allCars,HttpStatus.OK);
     }
 
-    @PutMapping("/{carId}")
-    public ResponseEntity<Object> updateCar(@RequestHeader(name="Authorization") String authorizationHeader ,@PathVariable Long carId,@ModelAttribute CarDto carDto) {
-        if (this.jwtTokenGenerator.validateJwtToken(authorizationHeader)) {
-            CarDetailsGetDto dto = carService.updateCar(carId, carDto);
-            return new ResponseEntity<>(dto, HttpStatus.OK);
-        }else {
-            return new ResponseEntity<>("invalied token" , HttpStatus.FORBIDDEN);
-        }
-    }
+//    @PutMapping("/{carId}")
+//    public ResponseEntity<Object> updateCar(@RequestHeader(name="Authorization") String authorizationHeader ,@PathVariable Long carId,@ModelAttribute CarDto carDto) {
+//        if (this.jwtTokenGenerator.validateJwtToken(authorizationHeader)) {
+//            CarDetailsGetDto dto = carService.updateCar(carId, carDto);
+//            return new ResponseEntity<>(dto, HttpStatus.OK);
+//        }else {
+//            return new ResponseEntity<>("invalied token" , HttpStatus.FORBIDDEN);
+//        }
+//    }
 
     @DeleteMapping("/{carId}")
     public ResponseEntity<String> deleteCar(@RequestHeader(name="Authorization") String authorizationHeader, @PathVariable Long carId){

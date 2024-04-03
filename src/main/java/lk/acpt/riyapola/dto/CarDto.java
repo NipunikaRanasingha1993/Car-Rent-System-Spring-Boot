@@ -17,7 +17,7 @@ public class CarDto {
     private String transMode;
     private String fuelType;
     private String engineCap;
-    private MultipartFile carName;
+//    private MultipartFile carName;
 
     public CarDto(String model, String brand, String transMode, String fuelType, String engineCap, MultipartFile carName) {
         this.model = model;
@@ -25,6 +25,6 @@ public class CarDto {
         this.transMode = transMode;
         this.fuelType = fuelType;
         this.engineCap = engineCap;
-        this.carName = carName;
+//        this.carName = carName;
     }
 }

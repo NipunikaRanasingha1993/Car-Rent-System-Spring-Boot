@@ -1,13 +1,12 @@
 package lk.acpt.riyapola.entity;
 
-import jakarta.persistence.Entity;
-import jakarta.persistence.GeneratedValue;
-import jakarta.persistence.GenerationType;
-import jakarta.persistence.Id;
+import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 import lombok.ToString;
+
+import java.util.List;
 
 @Entity
 @Data
@@ -23,7 +22,7 @@ public class Car {
     private String transMode;
     private String fuelType;
     private String engineCap;
-    private String carName;
+//    private String carName;
 
     public Car(String model, String brand, String transMode, String fuelType, String engineCap, String carName) {
         this.model = model;
@@ -31,6 +30,9 @@ public class Car {
         this.transMode = transMode;
         this.fuelType = fuelType;
         this.engineCap = engineCap;
-        this.carName = carName;
+//        this.carName = carName;
     }
+
+    @OneToMany(mappedBy = "car", cascade = CascadeType.ALL)
+    List<Images> images;
 }
