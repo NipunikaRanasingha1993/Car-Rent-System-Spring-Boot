@@ -16,13 +16,12 @@ import java.util.List;
 public class Car {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long id;
+    private Long carId;
     private String model;
     private String brand;
     private String transMode;
     private String fuelType;
     private String engineCap;
-//    private String carName;
 
     public Car(String model, String brand, String transMode, String fuelType, String engineCap) {
         this.model = model;
@@ -30,9 +29,12 @@ public class Car {
         this.transMode = transMode;
         this.fuelType = fuelType;
         this.engineCap = engineCap;
-//        this.carName = carName;
     }
 
     @OneToMany(mappedBy = "car", cascade = CascadeType.ALL)
     List<Images> images;
+
+
+    public Car(Integer carId) {
+    }
 }

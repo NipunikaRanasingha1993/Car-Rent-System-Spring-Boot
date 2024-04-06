@@ -11,11 +11,16 @@ import lombok.NoArgsConstructor;
 @AllArgsConstructor
 public class Images {
     @Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
-    private Integer id;
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    private Integer imageId;
     private String imageName;
 
     @ManyToOne
-    @JoinColumn(name="car_id")
+    @JoinColumn(name="carId")
     Car car;
+
+    public Images(Integer imageId, String imageName) {
+        this.imageId = imageId;
+        this.imageName = imageName;
+    }
 }

@@ -11,6 +11,12 @@ import org.springframework.web.multipart.MultipartFile;
 @AllArgsConstructor
 @ToString
 public class ImagesDto {
-    private int id;
+    private Integer imageId;
     private MultipartFile imageName;
+    private Integer carId;
+
+    public ImagesDto(MultipartFile imageName, Integer carId) {
+        this.imageName = imageName;
+        this.carId = carId;
+    }
 }
