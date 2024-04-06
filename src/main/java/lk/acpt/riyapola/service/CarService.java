@@ -1,15 +1,11 @@
 package lk.acpt.riyapola.service;
 
-import lk.acpt.riyapola.dto.CarDetailsGetDto;
 import lk.acpt.riyapola.dto.CarDto;
 import lk.acpt.riyapola.entity.Car;
 import lk.acpt.riyapola.repo.CarRepo;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import java.io.File;
-import java.io.IOException;
-import java.net.URISyntaxException;
 import java.util.List;
 import java.util.Optional;
 
@@ -20,6 +16,10 @@ public class CarService {
     @Autowired
     public CarService(CarRepo carRepo) {
         this.carRepo = carRepo;
+    }
+
+    public Car saveCar(CarDto carDto){
+        return carRepo.save(new Car(carDto.getBrand(), carDto.getModel(), carDto.getTransMode(), carDto.getFuelType(), carDto.getEngineCap()));
     }
 
 //    public CarDetailsGetDto saveCar(CarDto carDto) throws IOException, URISyntaxException {

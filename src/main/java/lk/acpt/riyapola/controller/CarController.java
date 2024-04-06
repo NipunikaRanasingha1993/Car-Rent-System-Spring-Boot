@@ -27,6 +27,16 @@ public class CarController {
         this.jwtTokenGenerator = jwtTokenGenerator;
     }
 
+    @PostMapping("/addNewCar")
+    public ResponseEntity<Object> saveCar(@RequestHeader(name= "Authorization") String authorizationHeader,@RequestBody CarDto carDto){
+        if(this.jwtTokenGenerator.validateJwtToken(authorizationHeader)){
+            Car car = carService.saveCar(carDto);
+            return new ResponseEntity<>(car,HttpStatus.CREATED);
+        } else {
+            return new ResponseEntity<>("invalied token" , HttpStatus.FORBIDDEN);
+        }
+    }
+
 //    @PostMapping("/addNewCar")
 //    public ResponseEntity<Object> saveCar(@RequestHeader(name = "Authorization") String authorizationHeader,@ModelAttribute CarDto carDto) throws IOException, URISyntaxException {
 //        if (this.jwtTokenGenerator.validateJwtToken(authorizationHeader)) {

@@ -24,7 +24,7 @@ public class Car {
     private String engineCap;
 //    private String carName;
 
-    public Car(String model, String brand, String transMode, String fuelType, String engineCap, String carName) {
+    public Car(String model, String brand, String transMode, String fuelType, String engineCap) {
         this.model = model;
         this.brand = brand;
         this.transMode = transMode;
