@@ -16,7 +16,7 @@ public class AdminService {
     private final AdminRepo adminRepo;
 
     @Autowired
-    public AdminService(JWTTokenGenerator jwtTokenGenerator, AdminRepo adminRepo) {
+    public AdminService(AdminRepo adminRepo) {
         this.adminRepo = adminRepo;
     }
 
