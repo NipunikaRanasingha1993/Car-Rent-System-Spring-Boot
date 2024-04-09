@@ -12,15 +12,15 @@ import lombok.NoArgsConstructor;
 public class Images {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Integer imageId;
+    private Integer imagesId;
     private String imageName;
 
     @ManyToOne
-    @JoinColumn(name="carId")
+    @JoinColumn(name="car_id")
     Car car;
 
-    public Images(Integer imageId, String imageName) {
-        this.imageId = imageId;
-        this.imageName = imageName;
+    public Images(String originalFilename, Car car) {
+        this.imageName=originalFilename;
+        this.car=car;
     }
 }

@@ -1,6 +1,5 @@
 package lk.acpt.riyapola.dto;
 
-import lk.acpt.riyapola.entity.Car;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
@@ -13,12 +12,6 @@ import lombok.ToString;
 public class ImagesDetailsGetDto {
     private Integer imageId;
     private String imageName;
-    private Integer carId;
+    private Integer car_id;
 
-
-    public ImagesDetailsGetDto(Integer imageId) {
-    }
-
-    public ImagesDetailsGetDto(Integer imageId, String imageName, Car car) {
-    }
 }

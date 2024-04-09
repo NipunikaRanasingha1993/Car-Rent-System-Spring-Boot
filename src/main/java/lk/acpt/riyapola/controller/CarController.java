@@ -53,18 +53,18 @@ public class CarController {
         return new ResponseEntity<>(allCars,HttpStatus.OK);
     }
 
-//    @PutMapping("/{carId}")
-//    public ResponseEntity<Object> updateCar(@RequestHeader(name="Authorization") String authorizationHeader ,@PathVariable Long carId,@ModelAttribute CarDto carDto) {
-//        if (this.jwtTokenGenerator.validateJwtToken(authorizationHeader)) {
-//            CarDetailsGetDto dto = carService.updateCar(carId, carDto);
-//            return new ResponseEntity<>(dto, HttpStatus.OK);
-//        }else {
-//            return new ResponseEntity<>("invalied token" , HttpStatus.FORBIDDEN);
-//        }
-//    }
+    @PutMapping("/{carId}")
+    public ResponseEntity<Object> updateCar(@RequestHeader(name="Authorization") String authorizationHeader ,@PathVariable Integer carId,@RequestBody CarDto carDto) {
+        if (this.jwtTokenGenerator.validateJwtToken(authorizationHeader)) {
+            Car car = carService.updateCar(carId, carDto);
+            return new ResponseEntity<>(car, HttpStatus.OK);
+        }else {
+            return new ResponseEntity<>("invalied token" , HttpStatus.FORBIDDEN);
+        }
+    }
 
     @DeleteMapping("/{carId}")
-    public ResponseEntity<String> deleteCar(@RequestHeader(name="Authorization") String authorizationHeader, @PathVariable Long carId){
+    public ResponseEntity<String> deleteCar(@RequestHeader(name="Authorization") String authorizationHeader, @PathVariable Integer carId){
         if(this.jwtTokenGenerator.validateJwtToken(authorizationHeader)){
             String delCar = carService.deleteCar(carId);
             return new ResponseEntity<>(delCar,HttpStatus.CREATED);
@@ -75,7 +75,7 @@ public class CarController {
     }
 
     @GetMapping("/search_car_by_id/{carId}")
-    public ResponseEntity<Object> searchCar(@RequestHeader(name="Authorization") String authorizationHeader, @PathVariable Long carId){
+    public ResponseEntity<Object> searchCar(@RequestHeader(name="Authorization") String authorizationHeader, @PathVariable Integer carId){
         if(this.jwtTokenGenerator.validateJwtToken(authorizationHeader)){
             Car car = carService.searchCar(carId);
             return new ResponseEntity<>(car,HttpStatus.OK);

@@ -22,6 +22,34 @@ public class CarService {
         return carRepo.save(new Car(carDto.getBrand(), carDto.getModel(), carDto.getTransMode(), carDto.getFuelType(), carDto.getEngineCap()));
     }
 
+    public List<Car> getAllCars(){
+        return carRepo.findAll();
+    }
+
+    public Car updateCar(Integer id, CarDto carDto){
+        if(carRepo.existsById(id)) {
+            return carRepo.save(new Car(id, carDto.getBrand(), carDto.getModel(), carDto.getTransMode(), carDto.getFuelType(), carDto.getEngineCap()));
+        }
+        return null;
+    }
+
+    public String deleteCar(Integer id){
+        if(carRepo.existsById(id)){
+            carRepo.deleteById(id);
+            return "car deleted......";
+        }else{
+            return "no found car.....";
+        }
+    }
+
+    public Car searchCar(Integer id){
+        Optional<Car> byId = carRepo.findById(id);
+        return byId.orElse(null);
+
+    }
+}
+
+
 //    public CarDetailsGetDto saveCar(CarDto carDto) throws IOException, URISyntaxException {
 //        String projectPath = new File(this.getClass().getProtectionDomain().getCodeSource().getLocation().toURI()).getParentFile().getParentFile().getAbsolutePath();
 //        File uploadDir = new File(projectPath + "/src/main/resources/static/uploads");
@@ -42,30 +70,3 @@ public class CarService {
 //        return new CarDetailsGetDto(carNew.getId(), carNew.getModel(), carNew.getBrand(), carNew.getTransMode(), carNew.getFuelType(), carNew.getEngineCap(), carNew.getCarName());
 //    }
 
-    public List<Car> getAllCars(){
-        return carRepo.findAll();
-    }
-
-//    public CarDetailsGetDto updateCar(Long id, CarDto carDto){
-//        if(carRepo.existsById(id)){
-//            Car newCar = carRepo.save(new Car(id, carDto.getModel(), carDto.getBrand(), carDto.getTransMode(), carDto.getFuelType(), carDto.getEngineCap(), carDto.getCarName().getOriginalFilename()));
-//            return new CarDetailsGetDto(newCar.getId(), newCar.getModel(), newCar.getBrand(), newCar.getTransMode(), newCar.getFuelType(), newCar.getEngineCap(), newCar.getCarName());
-//        }
-//        return null;
-//    }
-
-    public String deleteCar(Long id){
-        if(carRepo.existsById(id)){
-            carRepo.deleteById(id);
-            return "car deleted......";
-        }else{
-            return "no found car.....";
-        }
-    }
-
-    public Car searchCar(Long id){
-        Optional<Car> byId = carRepo.findById(id);
-        return byId.orElse(null);
-
-    }
-}

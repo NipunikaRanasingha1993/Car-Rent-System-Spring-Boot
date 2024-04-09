@@ -1,6 +1,7 @@
 package lk.acpt.riyapola.entity;
 
 import jakarta.persistence.*;
+import lk.acpt.riyapola.dto.ImagesDto;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
@@ -16,7 +17,7 @@ import java.util.List;
 public class Car {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long carId;
+    private Integer carId;
     private String model;
     private String brand;
     private String transMode;
@@ -35,6 +36,11 @@ public class Car {
     List<Images> images;
 
 
+
     public Car(Integer carId) {
+        this.carId=carId;
+    }
+
+    public Car(Integer id, String brand, String model, String transMode, String fuelType, String engineCap) {
     }
 }
