@@ -29,6 +29,8 @@ public class ImagesController {
     @PostMapping("/addNewImages")
     public ResponseEntity<Object> saveImages(@RequestHeader(name= "Authorization") String authorizationHeader, @ModelAttribute ImagesDto imagesDto) throws IOException, URISyntaxException {
         if (this.jwtTokenGenerator.validateJwtToken(authorizationHeader)) {
+            System.out.println("gtfrgtfgtgfgfgfgfg"+ imagesDto.getCarId());
+
             ImagesDetailsGetDto iii = imagesService.saveImages(imagesDto);
             return new ResponseEntity<>(iii, HttpStatus.CREATED);
         }

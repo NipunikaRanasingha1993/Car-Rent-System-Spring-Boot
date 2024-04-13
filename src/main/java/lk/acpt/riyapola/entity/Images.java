@@ -14,13 +14,10 @@ public class Images {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer imagesId;
     private String imageName;
+    private Integer carId;
 
-    @ManyToOne
-    @JoinColumn(name="car_id")
-    Car car;
 
-    public Images(String originalFilename, Car car) {
-        this.imageName=originalFilename;
-        this.car=car;
+    public Images(String originalFilename, Integer carId) {
     }
+
 }

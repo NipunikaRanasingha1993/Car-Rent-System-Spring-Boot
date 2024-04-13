@@ -13,5 +13,5 @@ import org.springframework.web.multipart.MultipartFile;
 public class ImagesDto {
     private Integer imageId;
     private MultipartFile imageName;
-    private Integer car_id;
+    private Integer carId;
 }

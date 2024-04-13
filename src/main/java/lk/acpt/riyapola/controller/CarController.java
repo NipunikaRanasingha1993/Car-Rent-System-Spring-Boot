@@ -1,6 +1,5 @@
 package lk.acpt.riyapola.controller;
 
-import lk.acpt.riyapola.dto.CarDetailsGetDto;
 import lk.acpt.riyapola.dto.CarDto;
 import lk.acpt.riyapola.entity.Car;
 import lk.acpt.riyapola.service.CarService;
@@ -10,8 +9,6 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
-import java.io.IOException;
-import java.net.URISyntaxException;
 import java.util.List;
 
 @RestController

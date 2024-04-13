@@ -25,17 +25,21 @@ public class ImagesService {
     public ImagesDetailsGetDto saveImages(ImagesDto imagesDto) throws IOException, URISyntaxException {
         String projectPath = new File(this.getClass().getProtectionDomain().getCodeSource().getLocation().toURI()).getParentFile().getParentFile().getAbsolutePath();
         File uploadDir = new File(projectPath + "/src/main/resources/static/uploads");
+
+
         uploadDir.mkdir();
+
         imagesDto.getImageName().transferTo(new File(uploadDir.getAbsolutePath() + "/" + imagesDto.getImageName().getOriginalFilename()));
 
 
-        Images img = new Images(imagesDto.getImageName().getOriginalFilename(),new Car(imagesDto.getCar_id()));
-        System.out.println(img);
+        Images img = new Images(imagesDto.getImageName().getOriginalFilename(),imagesDto.getCarId());
+
         img.setImageName("uploads/" +imagesDto.getImageName().getOriginalFilename());
+        img.setCarId(imagesDto.getCarId());
 
 
         Images save = imagesRepo.save(img);
         System.out.println(save);
-        return new ImagesDetailsGetDto(img.getImagesId(), img.getImageName(),img.getCar().getCarId());
+        return new ImagesDetailsGetDto(save.getImagesId(), save.getImageName(),save.getCarId());
     }
 }

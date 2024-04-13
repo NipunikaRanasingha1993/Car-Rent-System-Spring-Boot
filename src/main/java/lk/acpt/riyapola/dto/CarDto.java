@@ -1,5 +1,6 @@
 package lk.acpt.riyapola.dto;
 
+import lk.acpt.riyapola.entity.Images;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
@@ -19,13 +20,7 @@ public class CarDto {
     private String transMode;
     private String fuelType;
     private String engineCap;
-    private List<ImagesDetailsGetDto> images;
+    private List<Images> images;
 
-    public CarDto(String model, String brand, String transMode, String fuelType, String engineCap) {
-        this.model = model;
-        this.brand = brand;
-        this.transMode = transMode;
-        this.fuelType = fuelType;
-        this.engineCap = engineCap;
-    }
+
 }

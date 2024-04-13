@@ -19,16 +19,20 @@ public class CarService {
     }
 
     public Car saveCar(CarDto carDto){
-        return carRepo.save(new Car(carDto.getBrand(), carDto.getModel(), carDto.getTransMode(), carDto.getFuelType(), carDto.getEngineCap()));
+        return carRepo.save(new Car(carDto.getModel(), carDto.getBrand(), carDto.getTransMode(), carDto.getFuelType(), carDto.getEngineCap()));
     }
 
     public List<Car> getAllCars(){
+
         return carRepo.findAll();
+
+
+
     }
 
     public Car updateCar(Integer id, CarDto carDto){
         if(carRepo.existsById(id)) {
-            return carRepo.save(new Car(id, carDto.getBrand(), carDto.getModel(), carDto.getTransMode(), carDto.getFuelType(), carDto.getEngineCap()));
+            return carRepo.save(new Car(id, carDto.getModel(), carDto.getBrand(), carDto.getTransMode(), carDto.getFuelType(), carDto.getEngineCap()));
         }
         return null;
     }

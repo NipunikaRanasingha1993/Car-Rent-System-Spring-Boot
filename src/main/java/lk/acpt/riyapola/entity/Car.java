@@ -7,6 +7,7 @@ import lombok.Data;
 import lombok.NoArgsConstructor;
 import lombok.ToString;
 
+import java.util.ArrayList;
 import java.util.List;
 
 @Entity
@@ -32,15 +33,15 @@ public class Car {
         this.engineCap = engineCap;
     }
 
-    @OneToMany(mappedBy = "car", cascade = CascadeType.ALL)
-    List<Images> images;
+
+    @OneToMany(
+            cascade = CascadeType.ALL
+    )
+
+    @JoinColumn(name = "carId")
+    List<Images> images = new ArrayList<>();
 
 
-
-    public Car(Integer carId) {
-        this.carId=carId;
-    }
-
-    public Car(Integer id, String brand, String model, String transMode, String fuelType, String engineCap) {
+    public Car(Integer id, String model, String brand, String transMode, String fuelType, String engineCap) {
     }
 }

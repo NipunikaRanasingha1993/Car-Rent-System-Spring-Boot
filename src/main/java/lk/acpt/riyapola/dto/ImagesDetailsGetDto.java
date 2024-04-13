@@ -12,6 +12,6 @@ import lombok.ToString;
 public class ImagesDetailsGetDto {
     private Integer imageId;
     private String imageName;
-    private Integer car_id;
+    private Integer carId;
 
 }
