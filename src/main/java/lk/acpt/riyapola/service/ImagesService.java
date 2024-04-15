@@ -12,6 +12,7 @@ import org.springframework.stereotype.Service;
 import java.io.File;
 import java.io.IOException;
 import java.net.URISyntaxException;
+import java.util.List;
 
 @Service
 public class ImagesService {
@@ -41,5 +42,13 @@ public class ImagesService {
         Images save = imagesRepo.save(img);
         System.out.println(save);
         return new ImagesDetailsGetDto(save.getImagesId(), save.getImageName(),save.getCarId());
+    }
+
+    public List<Images> getAllImages(){
+
+        return imagesRepo.findAll();
+
+
+
     }
 }

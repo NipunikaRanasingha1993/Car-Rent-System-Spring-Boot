@@ -30,9 +30,9 @@ public class CarService {
 
     }
 
-    public Car updateCar(Integer id, CarDto carDto){
-        if(carRepo.existsById(id)) {
-            return carRepo.save(new Car(id, carDto.getModel(), carDto.getBrand(), carDto.getTransMode(), carDto.getFuelType(), carDto.getEngineCap()));
+    public Car updateCar(Integer carId, CarDto carDto){
+        if(carRepo.existsById(carId)) {
+            return carRepo.save(new Car(carId, carDto.getModel(), carDto.getBrand(), carDto.getTransMode(), carDto.getFuelType(), carDto.getEngineCap()));
         }
         return null;
     }

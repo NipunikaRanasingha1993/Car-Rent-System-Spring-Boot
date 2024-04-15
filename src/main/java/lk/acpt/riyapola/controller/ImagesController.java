@@ -3,6 +3,8 @@ package lk.acpt.riyapola.controller;
 import lk.acpt.riyapola.dto.CarDto;
 import lk.acpt.riyapola.dto.ImagesDetailsGetDto;
 import lk.acpt.riyapola.dto.ImagesDto;
+import lk.acpt.riyapola.entity.Car;
+import lk.acpt.riyapola.entity.Images;
 import lk.acpt.riyapola.service.ImagesService;
 import lk.acpt.riyapola.util.JWTTokenGenerator;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -12,6 +14,7 @@ import org.springframework.web.bind.annotation.*;
 
 import java.io.IOException;
 import java.net.URISyntaxException;
+import java.util.List;
 
 @RestController
 @RequestMapping("/images")
@@ -38,6 +41,12 @@ public class ImagesController {
         else {
             return new ResponseEntity<>("invalid Token", HttpStatus.FORBIDDEN);
         }
+    }
+
+    @GetMapping("/getAllImages")
+    public ResponseEntity<Object> getAllImages(){
+        List<Images> allImages = imagesService.getAllImages();
+        return new ResponseEntity<>(allImages,HttpStatus.OK);
     }
 
 
