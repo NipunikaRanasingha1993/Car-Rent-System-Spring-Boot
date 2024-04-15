@@ -31,10 +31,30 @@ public class CarService {
     }
 
     public Car updateCar(Integer carId, CarDto carDto){
-        if(carRepo.existsById(carId)) {
-            return carRepo.save(new Car(carId, carDto.getModel(), carDto.getBrand(), carDto.getTransMode(), carDto.getFuelType(), carDto.getEngineCap()));
+
+        Car existingCar = carRepo.findById(carId).orElse(null);
+
+        if(existingCar == null){
+            return null;
         }
-        return null;
+
+        existingCar.setCarId(carId);
+
+        existingCar.setModel(carDto.getModel());
+        existingCar.setBrand(carDto.getBrand());
+        existingCar.setTransMode(carDto.getTransMode());
+        existingCar.setFuelType(carDto.getFuelType());
+        existingCar.setEngineCap(carDto.getEngineCap());
+
+        Car saveCar = carRepo.save(existingCar);
+        System.out.println(saveCar.getCarId());
+
+        return saveCar;
+
+//        if(carRepo.existsById(carId)) {
+//            return carRepo.save(new Car(carId, carDto.getModel(), carDto.getBrand(), carDto.getTransMode(), carDto.getFuelType(), carDto.getEngineCap()));
+//        }
+//        return null;
     }
 
     public String deleteCar(Integer id){
