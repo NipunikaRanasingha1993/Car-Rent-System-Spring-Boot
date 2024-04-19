@@ -1,5 +1,6 @@
 package lk.acpt.riyapola.service;
 
+import lk.acpt.riyapola.dto.CarDto;
 import lk.acpt.riyapola.dto.ImagesDetailsGetDto;
 import lk.acpt.riyapola.dto.ImagesDto;
 import lk.acpt.riyapola.entity.Car;
@@ -44,11 +45,32 @@ public class ImagesService {
         return new ImagesDetailsGetDto(save.getImagesId(), save.getImageName(),save.getCarId());
     }
 
-    public List<Images> getAllImages(){
-
-        return imagesRepo.findAll();
 
 
+//    public List<Images> getAllImages(){
+//        return imagesRepo.findAll();
+//    }
 
+    public ImagesDetailsGetDto updateImages(Integer imagesId, ImagesDto imagesDto) throws URISyntaxException, IOException {
+        String projectPath = new File(this.getClass().getProtectionDomain().getCodeSource().getLocation().toURI()).getParentFile().getParentFile().getAbsolutePath();
+        File uploadDir = new File(projectPath + "/src/main/resources/static/uploads");
+
+
+        uploadDir.mkdir();
+
+        imagesDto.getImageName().transferTo(new File(uploadDir.getAbsolutePath() + "/" + imagesDto.getImageName().getOriginalFilename()));
+
+
+        Images img = new Images(imagesDto.getImageName().getOriginalFilename(),imagesDto.getCarId());
+
+        img.setImageName("uploads/" +imagesDto.getImageName().getOriginalFilename());
+        img.setCarId(imagesDto.getCarId());
+        img.setImagesId(imagesId);
+
+        if(imagesRepo.existsById(imagesId)){
+            Images save = imagesRepo.save(img);
+            return new ImagesDetailsGetDto(save.getImagesId(), save.getImageName(),save.getCarId());
+        }
+        return null;
     }
 }

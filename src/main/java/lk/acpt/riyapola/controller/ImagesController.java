@@ -43,11 +43,22 @@ public class ImagesController {
         }
     }
 
-    @GetMapping("/getAllImages")
-    public ResponseEntity<Object> getAllImages(){
-        List<Images> allImages = imagesService.getAllImages();
-        return new ResponseEntity<>(allImages,HttpStatus.OK);
+    @PutMapping("/updateImages/{imagesId}")
+    public ResponseEntity<Object> updateImages(@RequestHeader(name="Authorization") String authorizationHeader ,@PathVariable Integer imagesId,@ModelAttribute ImagesDto imagesDto) throws URISyntaxException, IOException {
+        if (this.jwtTokenGenerator.validateJwtToken(authorizationHeader)) {
+            System.out.println("ghhjsghj");
+            ImagesDetailsGetDto imagesDetailsGetDto = imagesService.updateImages(imagesId, imagesDto);
+            return new ResponseEntity<>(imagesDetailsGetDto, HttpStatus.OK);
+        }else {
+            return new ResponseEntity<>("invalied token" , HttpStatus.FORBIDDEN);
+        }
     }
+
+//    @GetMapping("/getAllImages")
+//    public ResponseEntity<Object> getAllImages(){
+//        List<Images> allImages = imagesService.getAllImages();
+//        return new ResponseEntity<>(allImages,HttpStatus.OK);
+//    }
 
 
 
